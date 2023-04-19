@@ -1,0 +1,20 @@
+name: IWantClipsPython
+sceneByURL:
+  - url:
+      - iwantclips.com/store
+    action: script
+    script:
+      - python3
+      - IWantClips.py
+      
+sceneByName:
+  action: script
+  script:
+    - python3
+    - IWantClips.py
+  
+sceneByQueryFragment:
+  action: script
+  script:
+    - python3
+    - IWantClips.py
