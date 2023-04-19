@@ -14,7 +14,9 @@ This is a Python scraper, and as such, Python (Python3) needs to be installed.
 - requests
 
 ## Features
-
+- Working search functionality utilising IWC's Algolia search API.
+- Dynamic selection of best-available thumbnail image, favouring still images over animated GIFs (still needs some tweaking).
+- No dependency on a Chrome CDP.
 
 ## Pitfalls
 - Highly untested - It seems to work fine on my Stash instance and I haven't encountered any issues yet, but this should very much be considered untested.
