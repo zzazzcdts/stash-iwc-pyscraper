@@ -183,16 +183,32 @@ def scrape_scene(scene_url: str) -> dict:
     video_tag = soup.find('video', class_='video-js embed-responsive-item')
     image_original = video_tag.get('poster')
     # The thumbnail being displayed on the page is usually an animated GIF, but 99% of the time there is a still image available. This script favours using the still image wherever possible, as it is usually of significantly higher quality.
+    image_png = image_original.replace(".gif", ".png")
     image_jpg = image_original.replace(".gif", ".jpg")
     # Test to see if the still image is available.
-    response = requests.get(image_jpg)
+    response = requests.get(image_png)
     # If it isn't:
     if response.status_code == 404:
-        # Fall back to using the original.
-        image = image_original
+        # Try the JPG
+        response = requests.get(image_jpg)
+        if response.status_code == 404:
+            # Try the thumbnail used in the search result/model page as a final option.
+            # Here we are rebuilding the URL into the form used for thumbnails. The result will be a low-resolution but static image.
+            parts = image_jpg.split('/')
+            filename = parts[-1]
+            video_id = parts[-2]
+            image_thumb = f"https://iwantclips.com/uploads/contents/videos/{video_id}/t_{filename}"
+            response = requests.get(image_thumb)
+            if response.status_code == 404:
+                # Use the GIF where no alternative is available.
+                image = image_original
+            else:
+                image = image_thumb
+        else:
+            image = image_jpg
     else:
         # Use the still image.
-        image = image_jpg
+        image = image_png
 
     # Retrieve tags. Here we are combining the category and hashtag sections into one set of tags.
     category_div = soup.find('div', class_='col-xs-12 category fix')
