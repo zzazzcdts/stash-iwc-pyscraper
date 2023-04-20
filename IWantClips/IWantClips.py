@@ -181,7 +181,12 @@ def scrape_scene(scene_url: str) -> dict:
 
     # Retrieve thumbnail
     video_tag = soup.find('video', class_='video-js embed-responsive-item')
-    image_original = video_tag.get('poster')
+    try:
+        image_original = video_tag.get('poster')
+    except AttributeError:
+        picture_tag = soup.find('img', class_='videoPlayer show-flexible-picture')
+        image_original = picture_tag.get('src')
+
     # The thumbnail being displayed on the page is usually an animated GIF, but 99% of the time there is a still image available. This script favours using the still image wherever possible, as it is usually of significantly higher quality.
     image_png = image_original.replace(".gif", ".png")
     image_jpg = image_original.replace(".gif", ".jpg")
