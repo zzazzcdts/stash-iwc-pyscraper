@@ -54,7 +54,8 @@ except ModuleNotFoundError:
 def GetAlgoliaApiKeys():
     # Load the front page.
     iwc = session.get("https://iwantclips.com")
-    iwc_page = iwc.content.decode('utf-8')
+
+    iwc_page = iwc.content.decode('utf-8', errors='ignore')
     # Look for the Javascript function that defines the API keys.
     match = re.search(r"(?<=searchClient: )algoliasearch\((.*?)\)", iwc_page)
     # If we find it:
@@ -251,4 +252,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-# Last updated 2023-04-19
+# Last updated 2023-04-21
