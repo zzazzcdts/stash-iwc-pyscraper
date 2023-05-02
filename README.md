@@ -19,7 +19,7 @@ This is a Python scraper, and as such, Python (Python3) needs to be installed.
 - No dependency on a Chrome CDP.
 
 ## Pitfalls
-- Highly untested - It seems to work fine on my Stash instance and I haven't encountered any issues yet, but this should very much be considered untested.
+- Tested with a few dozen clips and haven't encountered any major bugs, but caveat emptor.
 
 ## Special thanks
 I'd like to thank the writers of the following scrapers on the CommunityScrapers git repository - their code has proven very useful in helping this come together:
