@@ -217,12 +217,11 @@ def scrape_scene(scene_url: str) -> dict:
         image = image_png
 
     # Retrieve tags. Here we are combining the category and hashtag sections into one set of tags.
-    category_div = soup.find('div', class_='col-xs-12 category fix')
+    category_div = soup.find('div', class_='col-xs-12 category fix').text.strip()
     hashtags_div = soup.find('div', class_='col-xs-12 hashtags fix')
-    category_span = category_div.find('span').text.strip()
     hashtags_span = hashtags_div.find('span').text.strip()
 
-    tags = f"{category_span}, {hashtags_span}"
+    tags = f"{category_div}, {hashtags_span}"
     tags = tags.replace('\n', ' ')
     tags = tags.rstrip(",")
 
